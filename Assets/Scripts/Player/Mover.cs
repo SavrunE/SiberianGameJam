@@ -5,26 +5,30 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Mover : MonoBehaviour
 {
+    public Transform CameraPursure;
+
     public float MoveSpeed;
     public float StartMoveVelocity = 10f;
+    public float MaxVelocity = 10f;
 
-    public float JumpPower;
-    public KeyCode keyJump = KeyCode.Space;
+
 
     float moveHorizontal;
     float moveVertical;
-    bool isGrounded;
     float velocity;
-    Transform groundCheker;
+
+
+    Transform mainCamera;
+    Transform position;
     Vector3 movement;
     Vector3 moveDirection;
     Rigidbody body;
 
     void Start()
     {
-        isGrounded = true;
+        position = transform;
         body = GetComponent<Rigidbody>();
-        groundCheker = transform.Find("GroundChecker").GetComponent<Transform>();
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
     void Update()
@@ -33,14 +37,17 @@ public class Mover : MonoBehaviour
     }
     void Move()
     {
+        position.rotation = CameraPursure.rotation;
+
         moveHorizontal = Input.GetAxis("Horizontal");
         moveVertical = Input.GetAxis("Vertical");
-        movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+        movement = mainCamera.forward.normalized * moveVertical + mainCamera.right.normalized * moveHorizontal;
 
         velocity = body.velocity.magnitude;
 
         Debug.Log(velocity);
-        if (velocity < 10f)
+        if (velocity < MaxVelocity)
             StartMoving();
         else
             KeepMoving();
