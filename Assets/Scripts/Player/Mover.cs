@@ -6,11 +6,17 @@ using UnityEngine;
 public class Mover : MonoBehaviour
 {
     public float MoveSpeed;
+    public float StartMoveVelocity = 10f;
+
     public float JumpPower;
     public KeyCode keyJump = KeyCode.Space;
 
+    float moveHorizontal;
+    float moveVertical;
     bool isGrounded;
+    float velocity;
     Transform groundCheker;
+    Vector3 movement;
     Vector3 moveDirection;
     Rigidbody body;
 
@@ -24,40 +30,28 @@ public class Mover : MonoBehaviour
     void Update()
     {
         Move();
-        Jump();
     }
-    private void Move()
+    void Move()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        moveHorizontal = Input.GetAxis("Horizontal");
+        moveVertical = Input.GetAxis("Vertical");
+        movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        body.AddForce(movement * MoveSpeed * Time.deltaTime);
-    }
-    private void Jump()
-    {
-        if (Input.GetKeyDown(keyJump))
-        {
-            if (isGrounded)
-            {
-                body.AddForce(Vector3.up * JumpPower);
-                StartCoroutine(OnJumpWaiter());
-            }
-        }
-    }
-    IEnumerator OnJumpWaiter()
-    {
-        isGrounded = false;
-        yield return new WaitForSeconds(0.5f);
-        while(isGrounded == false)
-        {
-            CheckGround();
-        }
-    }
-    private void CheckGround()
-    {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheker.position, 0.6f);
+        velocity = body.velocity.magnitude;
 
-        isGrounded = colliders.Length > 1;
+        Debug.Log(velocity);
+        if (velocity < 10f)
+            StartMoving();
+        else
+            KeepMoving();
+
+    }
+    void StartMoving()
+    { 
+        body.AddForce(movement * MoveSpeed * StartMoveVelocity * Time.deltaTime, ForceMode.Impulse);
+    }
+    void KeepMoving()
+    {
+        body.AddForce(movement * MoveSpeed * Time.deltaTime, ForceMode.Impulse);
     }
 }
