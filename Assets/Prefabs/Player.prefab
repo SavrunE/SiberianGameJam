@@ -329,8 +329,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8814f7a0ecb9ef498157fea082692fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 50
-  SelfDamageReduction: 10
+  Damage: 100
+  SelfDamageReduction: 100
 --- !u!114 &7295714788237724574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,6 +344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 100
+  MaxHealth: 100
   Slider: {fileID: 0}
   EnergyValue: {fileID: 0}
 --- !u!114 &7295714788237724575

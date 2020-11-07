@@ -8,6 +8,7 @@ public class EnergyBarUI : MonoBehaviour
     public static EnergyBarUI Instance;
     [Range(0, 100)]
     public float Health = 100f;
+    public float MaxHealth = 100f;
     public Slider Slider;
     public Text EnergyValue;
 
