@@ -6,11 +6,13 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     ParticleSystem particleSystemAttack;
+    Lighting light;
     public float Damage = 1f;
     public float DamageReduct = 10f;
 
     void Start()
     {
+        light = GetComponent<Lighting>();
         particleSystemAttack = transform.Find("Electricity").GetComponent<ParticleSystem>();
         particleSystemAttack.Stop();
     }
@@ -25,12 +27,12 @@ public class Attack : MonoBehaviour
     void AttackerStart()
     {
         particleSystemAttack.Play();
+        light.ActivateLight(true);
         SetSelfDamage();
-
-
     }
     void AttackerStop()
     {
+        light.ActivateLight(false);
         particleSystemAttack.Stop();
     }
     private void SetSelfDamage()

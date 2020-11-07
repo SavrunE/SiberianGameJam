@@ -11,22 +11,18 @@ public class Mover : MonoBehaviour
     public float StartMoveVelocity = 10f;
     public float MaxVelocity = 10f;
 
-
-
     float moveHorizontal;
     float moveVertical;
     float velocity;
 
-
     Transform mainCamera;
-    Transform position;
-    Vector3 movement;
+    Transform moverTransform;
     Vector3 moveDirection;
     Rigidbody body;
 
     void Start()
     {
-        position = transform;
+        moverTransform = transform;
         body = GetComponent<Rigidbody>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
@@ -37,28 +33,26 @@ public class Mover : MonoBehaviour
     }
     void Move()
     {
-        position.rotation = CameraPursure.rotation;
+        moverTransform.rotation = CameraPursure.rotation;
 
         moveHorizontal = Input.GetAxis("Horizontal");
         moveVertical = Input.GetAxis("Vertical");
 
-        movement = mainCamera.forward.normalized * moveVertical + mainCamera.right.normalized * moveHorizontal;
-
+        moveDirection = mainCamera.forward.normalized * moveVertical + mainCamera.right.normalized * moveHorizontal;
         velocity = body.velocity.magnitude;
+        //Debug.Log(velocity);
 
-        Debug.Log(velocity);
         if (velocity < MaxVelocity)
             StartMoving();
         else
             KeepMoving();
-
     }
     void StartMoving()
     { 
-        body.AddForce(movement * MoveSpeed * StartMoveVelocity * Time.deltaTime, ForceMode.Impulse);
+        body.AddForce(moveDirection * MoveSpeed * StartMoveVelocity * Time.deltaTime, ForceMode.Impulse);
     }
     void KeepMoving()
     {
-        body.AddForce(movement * MoveSpeed * Time.deltaTime, ForceMode.Impulse);
+        body.AddForce(moveDirection * MoveSpeed * Time.deltaTime, ForceMode.Impulse);
     }
 }
