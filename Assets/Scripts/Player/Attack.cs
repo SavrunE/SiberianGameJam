@@ -5,16 +5,13 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    ParticleSystem particleSystemAttack;
-    Lighting light;
+    ElectricityAttack electricityAttack;
     public float Damage = 1f;
-    public float DamageReduct = 10f;
+    public float SelfDamageReduction = 10f;
 
     void Start()
     {
-        light = GetComponent<Lighting>();
-        particleSystemAttack = transform.Find("Electricity").GetComponent<ParticleSystem>();
-        particleSystemAttack.Stop();
+        electricityAttack = GetComponent<ElectricityAttack>();
     }
 
     void Update()
@@ -26,18 +23,16 @@ public class Attack : MonoBehaviour
     }
     void AttackerStart()
     {
-        particleSystemAttack.Play();
-        light.ActivateLight(true);
+        electricityAttack.Activate(true);
         SetSelfDamage();
     }
     void AttackerStop()
     {
-        light.ActivateLight(false);
-        particleSystemAttack.Stop();
+        electricityAttack.Activate(false);
     }
     private void SetSelfDamage()
     {
-        EnergyBarUI.Instance.Health -= Damage/DamageReduct * Time.deltaTime;
+        EnergyBarUI.Instance.Health -= Damage / SelfDamageReduction * Time.deltaTime;
         EnergyBarUI.Instance.OnChangeEnergy?.Invoke();
     }
 }

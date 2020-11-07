@@ -7,8 +7,8 @@ public class Mover : MonoBehaviour
 {
     public Transform CameraPursure;
 
-    public float MoveSpeed;
-    public float StartMoveVelocity = 10f;
+    public float MoveSpeed = 15f;
+    public float StartMoveVelocity = 2f;
     public float MaxVelocity = 10f;
 
     float moveHorizontal;
@@ -19,10 +19,12 @@ public class Mover : MonoBehaviour
     Transform moverTransform;
     Vector3 moveDirection;
     Rigidbody body;
+    ElectricitySphere overmovedSphere;
 
     void Start()
     {
         moverTransform = transform;
+        overmovedSphere = GetComponent<ElectricitySphere>();
         body = GetComponent<Rigidbody>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
@@ -48,11 +50,13 @@ public class Mover : MonoBehaviour
             KeepMoving();
     }
     void StartMoving()
-    { 
+    {
+        overmovedSphere.Activate(false);
         body.AddForce(moveDirection * MoveSpeed * StartMoveVelocity * Time.deltaTime, ForceMode.Impulse);
     }
     void KeepMoving()
     {
+        overmovedSphere.Activate(true);
         body.AddForce(moveDirection * MoveSpeed * Time.deltaTime, ForceMode.Impulse);
     }
 }
