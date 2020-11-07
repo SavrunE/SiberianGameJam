@@ -10,6 +10,7 @@ public class Mover : MonoBehaviour
     public float MoveSpeed = 15f;
     public float StartMoveVelocity = 2f;
     public float MaxVelocity = 10f;
+    public float OverspeedRestoreEnergy= 1f;
 
     float moveHorizontal;
     float moveVertical;
@@ -56,6 +57,7 @@ public class Mover : MonoBehaviour
     }
     void KeepMoving()
     {
+        Player.Instance.RestoreDamage(OverspeedRestoreEnergy * Time.deltaTime);
         overmovedSphere.Activate(true);
         body.AddForce(moveDirection * MoveSpeed * Time.deltaTime, ForceMode.Impulse);
     }

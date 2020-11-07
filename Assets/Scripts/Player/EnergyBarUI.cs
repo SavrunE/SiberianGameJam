@@ -14,13 +14,15 @@ public class EnergyBarUI : MonoBehaviour
     public delegate void ChangeEnergy();
     public ChangeEnergy OnChangeEnergy;
 
+    Color textColor;
+
     void Awake()
     {
         if (Instance == null)
             Instance = this;
         else if (Instance = this)
             Destroy(gameObject);
-
+        textColor = EnergyValue.color;
         DisplayEnergy();
         OnChangeEnergy += DisplayEnergy;
     }
@@ -33,5 +35,10 @@ public class EnergyBarUI : MonoBehaviour
     {
         Slider.value = Health;
         EnergyValue.text = ((int)Health).ToString();
+
+        if (Health < 30f)
+            EnergyValue.color = Color.red;
+        else
+            EnergyValue.color = textColor;
     }
 }

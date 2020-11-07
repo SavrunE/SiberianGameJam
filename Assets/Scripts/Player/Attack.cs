@@ -6,14 +6,16 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     ElectricityAttack electricityAttack;
-    public float Damage = 1f;
+    public float Damage = 10f;
     public float SelfDamageReduction = 10f;
 
+    BoxCollider attackBox;
     void Start()
     {
+        attackBox = transform.Find("AttackBox").GetComponent<BoxCollider>();
+        attackBox.enabled = false;
         electricityAttack = GetComponent<ElectricityAttack>();
     }
-
     void Update()
     {
         if (Input.GetKey(KeyCode.Space))
@@ -25,14 +27,16 @@ public class Attack : MonoBehaviour
     {
         electricityAttack.Activate(true);
         SetSelfDamage();
+        attackBox.enabled = true;
     }
     void AttackerStop()
     {
         electricityAttack.Activate(false);
+        attackBox.enabled = false;
     }
-    private void SetSelfDamage()
+    void SetSelfDamage()
     {
-        EnergyBarUI.Instance.Health -= Damage / SelfDamageReduction * Time.deltaTime;
-        EnergyBarUI.Instance.OnChangeEnergy?.Invoke();
+        float damage = Damage / SelfDamageReduction;
+        Player.Instance.SetDamage(damage * Time.deltaTime);
     }
 }

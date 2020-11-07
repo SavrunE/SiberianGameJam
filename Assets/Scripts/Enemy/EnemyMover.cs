@@ -17,11 +17,10 @@ public class EnemyMover : MonoBehaviour
     void Start()
     {
         canAttack = true;
-        targetTransform = Player.Inctanse.transform;
+        targetTransform = Player.Instance.transform;
 
         attack = GetComponent<EnemyAttack>();
         agent = GetComponent<NavMeshAgent>();
-
     }
     void Update()
     {
@@ -37,11 +36,12 @@ public class EnemyMover : MonoBehaviour
         if(canAttack)
         {
             canAttack = false;
+            transform.LookAt(targetTransform.position);
             Attack();
-            StartCoroutine(WaitPossibiliToAttack());
+            StartCoroutine(WaitPossibilityToAttack());
         }
     }
-    IEnumerator WaitPossibiliToAttack()
+    IEnumerator WaitPossibilityToAttack()
     {
         yield return new WaitForSeconds(DelayToAttack);
         canAttack = true;

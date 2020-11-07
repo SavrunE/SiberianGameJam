@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
 
     public float MaxHP = 255f;
     public float CurrentHP;
+    public float Damage = 10f;
 
     private MeshRenderer mesh;
     private Color color;
@@ -23,7 +24,6 @@ public class Enemy : MonoBehaviour
 
     public void SetDamage(float damage)
     {
-        CurrentHP -= damage;
         if (CurrentHP < 0)
         {
             Debug.Log("Eneme dead");
