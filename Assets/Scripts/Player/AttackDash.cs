@@ -19,6 +19,7 @@ public class AttackDash : MonoBehaviour
         canDash = true;
         body = GetComponent<Rigidbody>();
         attackCollider = transform.Find("DashAttackCapsule").GetComponent<CapsuleCollider>();
+        attackCollider.enabled = false;
         mover = GetComponent<Mover>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
@@ -26,7 +27,7 @@ public class AttackDash : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && canDash)
         {
-            body.velocity = Vector3.zero;
+            //body.velocity = Vector3.zero;
             Vector3 moveDirection = mainCamera.forward.normalized;
             mover.StartMoving(moveDirection, ForcePower);
 

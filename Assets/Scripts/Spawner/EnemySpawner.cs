@@ -11,18 +11,16 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         StartCoroutine(SpawnEnemies());
+        StartCoroutine(ChangeDelay());
     }
 
-    void Update()
-    {
-
-    }
     private IEnumerator SpawnEnemies()
     {
         while (true)
         {
             yield return new WaitForSeconds(SpawnDelay);
-            Vector3 newSpawnPosition = new Vector3(Random.Range(5f, 95f), 1f , Random.Range(5f, 95f));
+            Vector3 playerPosition = Player.Instance.transform.position;
+            Vector3 newSpawnPosition = new Vector3(Random.Range(-50f, 50f), 0f , Random.Range(-50f, 50f))+ playerPosition;
 
             Instantiate(EnemyPrefab, newSpawnPosition, this.transform.rotation);
         }

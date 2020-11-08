@@ -41,7 +41,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 242598372}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.5
   m_Height: 1
   m_Direction: 1
@@ -178,8 +178,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639850646}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.67}
-  m_LocalScale: {x: 1.9676, y: 1, z: 3.4572}
+  m_LocalPosition: {x: 0, y: 0, z: 4.16}
+  m_LocalScale: {x: 3.148357, y: 1.6001, z: 8.139587}
   m_Children: []
   m_Father: {fileID: 7295714788237724572}
   m_RootOrder: 4
@@ -390,8 +390,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8814f7a0ecb9ef498157fea082692fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 100
-  SelfDamageReduction: 100
+  Damage: 250
+  SelfDamageReduction: 250
 --- !u!114 &7295714788237724574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,7 +505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a41c042989494ec4f8c2cddc5cd9c2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ForcePower: 500
+  ForcePower: 200
   SelfDamage: 15
 --- !u!1 &7295714788692935532
 GameObject:

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class Player : MonoBehaviour
         if ( Health - value > 0)
              Health -= value;
         else
-            gameObject.SetActive(false);
+            Application.Quit();
         EnergyBarUI.Instance.OnChangeEnergy?.Invoke();
     }
     public void RestoreDamage(float value)

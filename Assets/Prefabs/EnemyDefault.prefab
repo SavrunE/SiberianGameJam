@@ -5094,8 +5094,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHP: 100
-  CurrentHP: 0
+  CurrentHP: 100
   Damage: 10
+  RestoreEnergyOnDead: 10
 --- !u!114 &5194210994731828305
 MonoBehaviour:
   m_ObjectHideFlags: 0
