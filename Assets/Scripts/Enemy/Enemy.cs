@@ -10,9 +10,10 @@ public class Enemy : MonoBehaviour
     public float MaxHP = 255f;
     public float CurrentHP;
     public float Damage = 10f;
+    public float RestoreEnergyOnDead = 10f;
 
-    private MeshRenderer mesh;
-    private Color color;
+    MeshRenderer mesh;
+    Color color;
 
     void Start()
     {
@@ -27,6 +28,7 @@ public class Enemy : MonoBehaviour
         if (CurrentHP < 0)
         {
             gameObject.SetActive(false);
+            Player.Instance.RestoreDamage(RestoreEnergyOnDead);
         }
         Color redPower = new Color((MaxHP / CurrentHP * (color.r / Color.red.r)), color.g, color.b);
         mesh.material.color = Color.Lerp(color, redPower, 1f);

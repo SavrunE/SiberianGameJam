@@ -18,7 +18,7 @@ public class Attack : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetMouseButton(0))
             AttackerStart();
         else
             AttackerStop();

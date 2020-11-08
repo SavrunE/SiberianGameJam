@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Range(0, 100)]
+    public float Health = 100f;
+    public float MaxHealth = 100f;
     public static Player Instance;
     
     void Awake()
@@ -19,18 +22,18 @@ public class Player : MonoBehaviour
     }
     public void SetDamage(float value)
     {
-        if (EnergyBarUI.Instance.Health - value > 0)
-            EnergyBarUI.Instance.Health -= value;
+        if ( Health - value > 0)
+             Health -= value;
         else
             gameObject.SetActive(false);
         EnergyBarUI.Instance.OnChangeEnergy?.Invoke();
     }
     public void RestoreDamage(float value)
     {
-        if (EnergyBarUI.Instance.Health + value < EnergyBarUI.Instance.MaxHealth)
-            EnergyBarUI.Instance.Health += value;
+        if ( Health + value <  MaxHealth)
+             Health += value;
         else
-            EnergyBarUI.Instance.Health = EnergyBarUI.Instance.MaxHealth;
+             Health =  MaxHealth;
 
         EnergyBarUI.Instance.OnChangeEnergy?.Invoke();
     }

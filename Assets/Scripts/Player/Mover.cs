@@ -16,9 +16,9 @@ public class Mover : MonoBehaviour
     float moveVertical;
     float velocity;
 
+    Vector3 moveDirection;
     Transform mainCamera;
     Transform moverTransform;
-    Vector3 moveDirection;
     Rigidbody body;
     ElectricitySphere overmovedSphere;
 
@@ -46,14 +46,14 @@ public class Mover : MonoBehaviour
         //Debug.Log(velocity);
 
         if (velocity < MaxVelocity)
-            StartMoving();
+            StartMoving(moveDirection, StartMoveVelocity);
         else
             KeepMoving();
     }
-    void StartMoving()
+    public void StartMoving(Vector3 direction ,float boost)
     {
         overmovedSphere.Activate(false);
-        body.AddForce(moveDirection * MoveSpeed * StartMoveVelocity * Time.deltaTime, ForceMode.Impulse);
+        body.AddForce(direction * MoveSpeed * boost * Time.deltaTime, ForceMode.Impulse);
     }
     void KeepMoving()
     {
